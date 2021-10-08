@@ -3,6 +3,7 @@ mod counter_hook;
 mod counter_old;
 mod counter_reducer;
 mod selection_listener;
+pub mod utils;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
