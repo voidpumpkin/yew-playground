@@ -2,23 +2,37 @@ use web_sys::window;
 use yew::prelude::*;
 use yew_router::attach_route_listener;
 use yew_router::prelude::*;
+use yew_router::RouteListener;
 
 use crate::app::Route;
+use crate::use_memo::use_memo;
+
+fn get_current_pathname() -> String {
+    window().unwrap().location().pathname().unwrap()
+}
+
+fn create_route_listener(route: UseStateHandle<Option<Route>>) -> RouteListener {
+    log::info!("create_route_listener");
+
+    attach_route_listener(Callback::from(move |new_route: Option<Route>| {
+        log::info!("agent");
+        route.set(new_route);
+    }))
+}
 
 #[function_component(Content)]
 pub fn content() -> Html {
-    let pathname = use_state(|| window().unwrap().location().pathname().unwrap());
     let route = use_state(Route::current_route);
 
-    let pathname_clone = pathname.clone();
-    let route_clone = route.clone();
+    let route_for_pathname = route.clone();
+    let pathname = use_memo(get_current_pathname, route_for_pathname);
 
-    use_state(move || {
-        attach_route_listener(Callback::from(move |r: Option<Route>| {
-            route_clone.set_if_neq(r);
-            pathname_clone.set_if_neq(window().unwrap().location().pathname().unwrap());
-        }))
-    });
+    let route_for_cb = route.clone();
+    let route_for_listner = route.clone();
+    let _route_listener = use_memo(
+        move || create_route_listener(route_for_cb),
+        route_for_listner,
+    );
 
     html! {
         <div class="container">
