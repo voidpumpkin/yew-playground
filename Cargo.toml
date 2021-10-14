@@ -6,9 +6,9 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-yew = { git = "https://github.com/yewstack/yew.git", rev = "78bb994" }
-yew-agent = { git = "https://github.com/yewstack/yew.git", rev = "78bb994" }
-yew-router = { git = "https://github.com/yewstack/yew.git", rev = "78bb994" }
+yew = { git = "https://github.com/voidpumpkin/yew.git" }
+yew-agent = { git = "https://github.com/voidpumpkin/yew.git" }
+yew-router = { git = "https://github.com/voidpumpkin/yew.git" }
 wasm-bindgen = { version = "0.2.78", features = ["serde-serialize"]}
 log = "0.4.6"
 wasm-logger = "0.2.0"
