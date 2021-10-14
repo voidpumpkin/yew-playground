@@ -12,10 +12,10 @@ fn get_current_pathname() -> String {
 }
 
 fn create_route_listener(route: UseStateHandle<Option<Route>>) -> RouteListener {
-    log::info!("create_route_listener");
+    log::info!("create_route_listener {:?}", route);
 
     attach_route_listener(Callback::from(move |new_route: Option<Route>| {
-        log::info!("agent");
+        log::info!("agent {:?}", new_route); //for some reason always one click behind
         route.set(new_route);
     }))
 }
@@ -23,9 +23,7 @@ fn create_route_listener(route: UseStateHandle<Option<Route>>) -> RouteListener 
 #[function_component(Content)]
 pub fn content() -> Html {
     let route = use_state(Route::current_route);
-
-    let route_for_pathname = route.clone();
-    let pathname = use_memo(get_current_pathname, route_for_pathname);
+    log::info!("rerender {:?}", route);
 
     let route_for_cb = route.clone();
     let route_for_listner = route.clone();
@@ -33,6 +31,9 @@ pub fn content() -> Html {
         move || create_route_listener(route_for_cb),
         route_for_listner,
     );
+
+    let route_for_pathname = route.clone();
+    let pathname = use_memo(get_current_pathname, route_for_pathname);
 
     html! {
         <div class="container">
