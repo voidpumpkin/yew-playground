@@ -11,19 +11,29 @@ fn get_current_pathname() -> String {
     window().unwrap().location().pathname().unwrap()
 }
 
-fn create_route_listener(route: UseStateHandle<Option<Route>>) -> RouteListener {
-    log::info!("create_route_listener {:?}", route);
+fn get_current_route_correctly() -> Option<Route> {
+    Route::from_path(&get_current_pathname(), &Default::default())
+}
 
+fn create_route_listener(route: UseStateHandle<Option<Route>>) -> RouteListener {
+    log::info!("create_route_listener {:?}", *route);
+
+    //for some reason new_route always one behind
     attach_route_listener(Callback::from(move |new_route: Option<Route>| {
-        log::info!("agent {:?}", new_route); //for some reason always one click behind
-        route.set(new_route);
+        let r = get_current_route_correctly();
+        log::info!(
+            "agent\ngot: {:?}\nbut is:{:?}",
+            new_route.unwrap(),
+            r.clone().unwrap()
+        );
+        route.set_if_neq(r);
     }))
 }
 
 #[function_component(Content)]
 pub fn content() -> Html {
     let route = use_state(Route::current_route);
-    log::info!("rerender {:?}", route);
+    log::info!("rerender {:?}", *route);
 
     let route_for_cb = route.clone();
     let route_for_listner = route.clone();
