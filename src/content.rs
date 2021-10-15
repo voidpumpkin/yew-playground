@@ -39,7 +39,7 @@ pub fn content() -> Html {
 
     html! {
         <div class="container">
-            <div>{"prev: Listener: "}{format!("{:?}", *route)}</div>
+            <div>{"Route: "}{format!("{:?}", *route)}</div>
             <div>{"Pathname: "}{pathname.to_string()}</div>
             <div class="row">
                 <Link<Route> route={Route::Home}>{"Home"}</Link<Route>>
