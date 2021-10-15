@@ -5,24 +5,41 @@ use yew_router::prelude::*;
 
 use crate::app::Route;
 
+fn get_path() -> String {
+    window().unwrap().location().pathname().unwrap()
+}
+
+fn get_current_route_correctly() -> Option<Route> {
+    Route::from_path(&get_path(), &Default::default())
+}
+
 #[function_component(Content)]
 pub fn content() -> Html {
-    let pathname = use_state(|| window().unwrap().location().pathname().unwrap());
+    let pathname = use_state(get_path);
     let route = use_state(Route::current_route);
 
-    let pathname_clone = pathname.clone();
-    let route_clone = route.clone();
+    {
+        let pathname = pathname.clone();
+        let route = route.clone();
+        use_state(move || {
+            attach_route_listener(Callback::from(move |r: Option<Route>| {
+                let correct_route = get_current_route_correctly();
 
-    use_state(move || {
-        attach_route_listener(Callback::from(move |r: Option<Route>| {
-            route_clone.set_if_neq(r);
-            pathname_clone.set_if_neq(window().unwrap().location().pathname().unwrap());
-        }))
-    });
+                log::info!(
+                    "called callback\ngave: {:?}\nbut is: {:?}",
+                    r.unwrap(),
+                    correct_route.clone().unwrap()
+                );
+
+                route.set(correct_route);
+                pathname.set(get_path());
+            }))
+        });
+    }
 
     html! {
         <div class="container">
-            <div>{"Listener: "}{format!("{:?}", *route)}</div>
+            <div>{"prev: Listener: "}{format!("{:?}", *route)}</div>
             <div>{"Pathname: "}{pathname.to_string()}</div>
             <div class="row">
                 <Link<Route> route={Route::Home}>{"Home"}</Link<Route>>
