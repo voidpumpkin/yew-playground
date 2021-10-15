@@ -16,7 +16,7 @@ fn get_current_route_correctly() -> Option<Route> {
 #[function_component(Content)]
 pub fn content() -> Html {
     let pathname = use_state(get_path);
-    let route = use_state(Route::current_route);
+    let route = use_state(get_current_route_correctly);
 
     {
         let pathname = pathname.clone();
@@ -31,8 +31,8 @@ pub fn content() -> Html {
                     correct_route.clone().unwrap()
                 );
 
-                route.set(correct_route);
-                pathname.set(get_path());
+                route.set_if_neq(correct_route);
+                pathname.set_if_neq(get_path());
             }))
         });
     }
