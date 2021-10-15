@@ -16,13 +16,11 @@ fn get_current_route_correctly() -> Option<Route> {
 }
 
 fn create_route_listener(route: UseStateHandle<Option<Route>>) -> RouteListener {
-    log::info!("create_route_listener {:?}", *route);
-
     //for some reason new_route always one behind
     attach_route_listener(Callback::from(move |new_route: Option<Route>| {
         let r = get_current_route_correctly();
         log::info!(
-            "agent\ngot: {:?}\nbut is:{:?}",
+            "event listener triggered\ngot: {:?}\nbut is:{:?}",
             new_route.unwrap(),
             r.clone().unwrap()
         );
@@ -33,8 +31,6 @@ fn create_route_listener(route: UseStateHandle<Option<Route>>) -> RouteListener 
 #[function_component(Content)]
 pub fn content() -> Html {
     let route = use_state(Route::current_route);
-    log::info!("rerender {:?}", *route);
-
     let route_for_cb = route.clone();
     let route_for_listner = route.clone();
     let _route_listener = use_memo(
