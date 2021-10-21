@@ -1,0 +1,1 @@
+import('../pkg').then(({ start }) => start())

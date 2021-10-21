@@ -1,5 +1,5 @@
 [package]
-name = "yew-playground"
+name = "app"
 version = "0.1.0"
 edition = "2018"
 
@@ -23,3 +23,6 @@ web-sys = { version = "0.3.54", features = [
 ] }
 js-sys = "0.3.55"
 serde = "1.0.130"
+
+[lib]
+crate-type = ["cdylib"]
