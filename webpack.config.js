@@ -10,6 +10,17 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', "css-loader", "postcss-loader"],
+            }
+        ],
+    },
+    experiments: {
+        syncWebAssembly: true,
+    },
     plugins: [
         new WasmPackPlugin({
             crateDirectory: path.resolve(__dirname, '.'),
@@ -26,12 +37,9 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 { from: "static" },
-                { from: "pkg", to: "dist/pkg" },
+                { from: "pkg" },
             ],
         }),
 
     ],
-    experiments: {
-        syncWebAssembly: true,
-    },
 };
