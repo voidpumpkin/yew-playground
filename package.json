@@ -1,7 +1,7 @@
 {
   "name": "yew-playground",
   "version": "1.0.0",
-  "description": "trunk serve --port=8881",
+  "description": "",
   "private": true,
   "scripts": {
     "start": "webpack serve --port=8881 --mode development",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/voidpumpkin/yew-playground.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/voidpumpkin/yew-playground/issues"
   },
