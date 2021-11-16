@@ -1,9 +1,4 @@
-mod counter;
-// mod counter_hook;
-// mod counter_old;
-// mod counter_reducer;
-mod selection_listener;
-// pub mod utils;
+mod portal;
 
 use wasm_bindgen::prelude::*;
 
@@ -17,5 +12,5 @@ pub fn start() {
     // yew::start_app::<counter_old::CounterOld>();
     // yew::start_app::<counter_reducer::CounterReducer>();
     // yew::start_app::<counter_hook::CounterHook>();
-    yew::start_app::<selection_listener::SelectionListener>();
+    yew::start_app::<portal::Model>();
 }

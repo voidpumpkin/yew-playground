@@ -6,20 +6,28 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-yew = { git = "https://github.com/yewstack/yew.git", rev = "78bb994" }
-yew-agent = { git = "https://github.com/yewstack/yew.git", rev = "78bb994" }
-yew-router = { git = "https://github.com/yewstack/yew.git", rev = "78bb994" }
+yew = { git = "https://github.com/WorldSEnder/yew.git", rev = "97627fe37f3740c33ca7dbbdb9ac14d209bd7b90" }
+yew-agent = { git = "https://github.com/WorldSEnder/yew.git", rev = "97627fe37f3740c33ca7dbbdb9ac14d209bd7b90" }
+yew-router = { git = "https://github.com/WorldSEnder/yew.git", rev = "97627fe37f3740c33ca7dbbdb9ac14d209bd7b90" }
 wasm-bindgen = { version = "0.2.78", features = ["serde-serialize"]}
 log = "0.4.6"
 wasm-logger = "0.2.0"
+gloo-utils = "0.1"
 web-sys = { version = "0.3.54", features = [
+    "Document",
     "console",
+    "Element",
     "Event",
+    "EventTarget",
+    "FocusEvent",
+    "HtmlHeadElement",
     "HtmlInputElement",
     "InputEvent",
-    "FocusEvent",
-    "EventTarget",
     "MouseEvent",
+    "Node",
+    "ShadowRoot",
+    "ShadowRootInit",
+    "ShadowRootMode",
 ] }
 js-sys = "0.3.55"
 serde = "1.0.130"
