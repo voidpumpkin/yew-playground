@@ -3,12 +3,6 @@
 version = 3
 
 [[package]]
-name = "anyhow"
-version = "1.0.44"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "61604a8f862e1d5c3229fdd78f8b02c68dcf73a4c4b05fd636d12240aaa242c1"
-
-[[package]]
 name = "anymap2"
 version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -73,6 +67,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "fnv"
+version = "1.0.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1"
+
+[[package]]
 name = "form_urlencoded"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -83,10 +83,25 @@ dependencies = [
 ]
 
 [[package]]
-name = "gloo"
-version = "0.3.0"
+name = "futures-channel"
+version = "0.3.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0b31ec63066de893f3be98da84af50441ea35819bd7be95373802dea56293952"
+checksum = "5da6ba8c3bb3c165d3c7319fc1cc8304facf1fb8db99c5de877183c08a273888"
+dependencies = [
+ "futures-core",
+]
+
+[[package]]
+name = "futures-core"
+version = "0.3.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "88d1c26957f23603395cd326b0ffe64124b818f4449552f960d815cfba83a53d"
+
+[[package]]
+name = "gloo"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "47b132b7ae9ed5f83cc6d2c345ee521f610e579abfcdc9156eff88a192659d35"
 dependencies = [
  "gloo-console",
  "gloo-dialogs",
@@ -99,9 +114,9 @@ dependencies = [
 
 [[package]]
 name = "gloo-console"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "770942b86a2ab86330201eeafc5fe526fb203e54dbc6ef82a36453cebcb90e4c"
+checksum = "dd41ea5edd62c26e9d6c16d7e14bd53d78b3528374e0489348154fc506bcb133"
 dependencies = [
  "js-sys",
  "serde",
@@ -131,10 +146,11 @@ dependencies = [
 
 [[package]]
 name = "gloo-file"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f9fecfe46b5dc3cc46f58e98ba580cc714f2c93860796d002eb3527a465ef49"
+checksum = "d31ba1f51868ae10a0b665c6dccd5ed967486e7c17055d1c889596ee983be493"
 dependencies = [
+ "futures-channel",
  "gloo-events",
  "js-sys",
  "wasm-bindgen",
@@ -153,10 +169,11 @@ dependencies = [
 
 [[package]]
 name = "gloo-storage"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8c6cbd4f8664a9eec3d1f65de3e88d5898ef331db56efceae30fae4883ed311b"
+checksum = "1b5057761927af1b1929d02b1f49cf83553dd347a473ee7c8bb08420f2673ffc"
 dependencies = [
+ "gloo-utils",
  "js-sys",
  "serde",
  "serde_json",
@@ -170,6 +187,19 @@ name = "gloo-timers"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "47204a46aaff920a1ea58b11d03dec6f704287d27561724a4631e450654a891f"
+dependencies = [
+ "futures-channel",
+ "futures-core",
+ "js-sys",
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
+name = "gloo-utils"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2f00ff0fa8a9f48627e10417adf4b1b3a7c25edf51baa654f6b3c219c0fa8435"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
@@ -277,6 +307,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f12d06de37cf59146fbdecab66aa99f9fe4f78722e3607577a5375d66bd0c913"
 dependencies = [
  "serde_derive",
+]
+
+[[package]]
+name = "serde-wasm-bindgen"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "618365e8e586c22123d692b72a7d791d5ee697817b65a218cdf12a98870af0f7"
+dependencies = [
+ "fnv",
+ "js-sys",
+ "serde",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -448,11 +490,11 @@ dependencies = [
 [[package]]
 name = "yew"
 version = "0.18.0"
-source = "git+https://github.com/yewstack/yew.git?rev=78bb994#78bb994ba23c9aa8d0bcfa8da2ddc972db5892b8"
+source = "git+https://github.com/yewstack/yew.git#068a20abba6741999e9fce85d81853ddadcad990"
 dependencies = [
- "anyhow",
  "console_error_panic_hook",
  "gloo",
+ "gloo-utils",
  "indexmap",
  "js-sys",
  "scoped-tls-hkt",
@@ -466,11 +508,12 @@ dependencies = [
 [[package]]
 name = "yew-agent"
 version = "0.1.0"
-source = "git+https://github.com/yewstack/yew.git?rev=78bb994#78bb994ba23c9aa8d0bcfa8da2ddc972db5892b8"
+source = "git+https://github.com/yewstack/yew.git#068a20abba6741999e9fce85d81853ddadcad990"
 dependencies = [
  "anymap2",
  "bincode",
  "gloo-console",
+ "gloo-utils",
  "js-sys",
  "serde",
  "slab",
@@ -483,7 +526,7 @@ dependencies = [
 [[package]]
 name = "yew-macro"
 version = "0.18.0"
-source = "git+https://github.com/yewstack/yew.git?rev=78bb994#78bb994ba23c9aa8d0bcfa8da2ddc972db5892b8"
+source = "git+https://github.com/yewstack/yew.git#068a20abba6741999e9fce85d81853ddadcad990"
 dependencies = [
  "boolinator",
  "lazy_static",
@@ -495,13 +538,16 @@ dependencies = [
 [[package]]
 name = "yew-router"
 version = "0.15.0"
-source = "git+https://github.com/yewstack/yew.git?rev=78bb994#78bb994ba23c9aa8d0bcfa8da2ddc972db5892b8"
+source = "git+https://github.com/yewstack/yew.git#068a20abba6741999e9fce85d81853ddadcad990"
 dependencies = [
  "gloo",
+ "gloo-utils",
  "js-sys",
  "route-recognizer",
  "serde",
+ "serde-wasm-bindgen",
  "serde_urlencoded",
+ "thiserror",
  "wasm-bindgen",
  "web-sys",
  "yew",
@@ -511,7 +557,7 @@ dependencies = [
 [[package]]
 name = "yew-router-macro"
 version = "0.15.0"
-source = "git+https://github.com/yewstack/yew.git?rev=78bb994#78bb994ba23c9aa8d0bcfa8da2ddc972db5892b8"
+source = "git+https://github.com/yewstack/yew.git#068a20abba6741999e9fce85d81853ddadcad990"
 dependencies = [
  "proc-macro2",
  "quote",
