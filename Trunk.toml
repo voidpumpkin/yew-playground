@@ -16,5 +16,5 @@ watch = [
 [[hooks]]
 stage = "build"
 command = "sh"
-command_arguments = ["-c", "tailwindcss -i index.css -o $TRUNK_STAGING_DIR/tailwind.css"]
+command_arguments = ["-c", "npx tailwindcss -i index.css -o $TRUNK_STAGING_DIR/tailwind.css"]
 # command_arguments = ["-c", "tailwindcss -c tailwind.config.js -o $TRUNK_STAGING_DIR/tailwind.css"]
