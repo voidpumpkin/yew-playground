@@ -9,10 +9,10 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-yew = { git = "https://github.com/yewstack/yew.git" }
-yew-agent = { git = "https://github.com/yewstack/yew.git" }
-yew-router = { git = "https://github.com/yewstack/yew.git" }
-wasm-bindgen = { version = "0.2.78", features = ["serde-serialize"]}
+yew = { git = "https://github.com/yewstack/yew", features = ["csr"] }
+yew-agent = { git = "https://github.com/yewstack/yew" }
+yew-router = { git = "https://github.com/yewstack/yew" }
+wasm-bindgen = { version = "0.2.77", features = ["serde-serialize"]}
 log = "0.4.6"
 wasm-logger = "0.2.0"
 web-sys = { version = "0.3.54", features = [
@@ -24,8 +24,5 @@ web-sys = { version = "0.3.54", features = [
     "EventTarget",
     "MouseEvent",
 ] }
-js-sys = "0.3.55"
 serde = "1.0.130"
 
-[lib]
-crate-type = ["cdylib"]

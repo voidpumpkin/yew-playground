@@ -1,39 +1,5 @@
 {
-  "name": "yew-playground",
-  "version": "1.0.0",
-  "description": "",
-  "private": true,
-  "scripts": {
-    "start": "webpack serve --port=8881 --mode development",
-    "build": "webpack --mode production",
-    "serve": "serve dist -p 8881",
-    "prod": "npm run build && npm run serve"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/voidpumpkin/yew-playground.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/voidpumpkin/yew-playground/issues"
-  },
-  "homepage": "https://github.com/voidpumpkin/yew-playground#readme",
-  "devDependencies": {
-    "@wasm-tool/wasm-pack-plugin": "^1.6.0",
-    "autoprefixer": "^10.3.7",
-    "copy-webpack-plugin": "^9.0.1",
-    "css-loader": "^6.4.0",
-    "html-webpack-plugin": "^5.4.0",
-    "mini-css-extract-plugin": "^2.4.2",
-    "postcss": "^8.3.10",
-    "postcss-cli": "^9.0.1",
-    "postcss-loader": "^6.2.0",
-    "serve": "^12.0.1",
-    "style-loader": "^3.3.0",
-    "tailwindcss": "^2.2.17",
-    "webpack": "^5.59.1",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.3.1"
+  "dependencies": {
+    "browserslist": "^4.21.3"
   }
 }

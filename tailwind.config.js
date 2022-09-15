@@ -1,7 +1,6 @@
 module.exports = {
-  mode: 'jit',
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "class", // or 'media' or 'class'
+  content: ["./src/**/*.rs", "./index.html"],
   theme: {
     extend: {},
   },
@@ -9,4 +8,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};
