@@ -1,57 +1,53 @@
-pub mod use_forever_suspension;
-
-use gloo::timers::callback::Timeout;
-use use_forever_suspension::use_forever_suspension;
+use gloo::utils::document;
+use wasm_bindgen::{JsCast, UnwrapThrowExt};
+use web_sys::{Event, HtmlInputElement, InputEvent};
 use yew::prelude::*;
 
-#[function_component]
-fn FirstPage() -> HtmlResult {
-    use_forever_suspension()?;
+pub fn get_input_value(input_event: InputEvent) -> String {
+    let event: Event = input_event.dyn_into().unwrap_throw();
+    get_input_value_from_event(event)
+}
 
-    Ok(html! {
-        <button class="btn block">{ "Some button" }</button>
-    })
+pub fn get_input_value_from_event(event: Event) -> String {
+    let target = event.target().unwrap_throw();
+    let input_element: HtmlInputElement = target.dyn_into().unwrap_throw();
+    input_element.value()
 }
 
 #[function_component]
 fn App() -> Html {
-    let page_handle = use_state(|| 1);
-    let page = *page_handle;
+    let value_handle = use_state(String::default);
+    let value = (*value_handle).clone();
 
-    use_memo(
-        move |()| {
-            Timeout::new(1_000, move || {
-                page_handle.set(2);
-            })
+    let oninput = {
+        Callback::from(move |e: InputEvent| {
+            value_handle.set(get_input_value(e));
+        })
+    };
+
+    let modal_root = document()
+        .get_element_by_id("modal-root")
+        .expect("Expected to find a #modal-root element");
+
+    create_portal(
+        html! {
+            <input
+                type="text"
+                placeholder="Type here"
+                {value}
+                {oninput}
+            />
         },
-        (),
-    );
-
-    use_memo(
-        |page| {
-            log::info!("🚀 {page}");
-        },
-        page,
-    );
-
-    html! {
-        <>
-        <Suspense fallback={html! {<div>{"Loading..."}</div>}}>
-            if page == 1 {
-                // If uncommented will work
-                // <Suspense fallback={html! {<div>{"Loading 1..."}</div>}}>
-                    <FirstPage />
-                // </Suspense>
-            } else {
-                <h1>{"Page 2"}</h1>
-            }
-        </Suspense>
-        </>
-    }
+        modal_root,
+    )
 }
 
 pub fn main() {
     wasm_logger::init(wasm_logger::Config::default());
 
-    yew::Renderer::<App>::new().render();
+    let root = document()
+        .get_element_by_id("root")
+        .expect("Expected to find a #root element");
+
+    yew::Renderer::<App>::with_root(root).render();
 }
